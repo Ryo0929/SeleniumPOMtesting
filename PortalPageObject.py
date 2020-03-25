@@ -9,7 +9,7 @@ class BasePage:
         self.driver=driver
     def tryToClick(self,By,path):
         str_error=None
-        for x in range(10):
+        for x in range(5):
             try:
                 element=self.driver.find_element(By,path)
                 element.click()
@@ -21,9 +21,15 @@ class BasePage:
                 pass
             if str_error:
                 time.sleep(2)
-                print("try click-",x)
+                print("try click again")
             else:
                 break
+    def sendKeys(self,By,Path,keys):
+        element=self.driver.find_element(By,Path)
+        element.send_keys(keys)
+    def switchFrame(self,By,XPath):
+        frame=self.driver.find_element_by_xpath(XPath)
+        self.driver.switch_to.frame(frame)
 class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
@@ -58,13 +64,20 @@ class LoginPage(BasePage):
 class DriverSoftware(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
-    inputBox=(By.NAME,'txtkeyword')
+    inputBox=(By.ID,'txtkeyword')
     submitBtb=(By.ID,'hplSubmit')
+    iframe=(By.XPATH,'/html/body/div[3]/div[2]/div/p/iframe')
+    def click_inputBox(self):
+        self.tryToClick(*DriverSoftware.inputBox)
+    def sendKeysToInputBox(self,keys):
+        self.sendKeys(*DriverSoftware.inputBox,keys)
+    def switchToIframe(self):
+        self.switchFrame(*DriverSoftware.iframe)
 class ServicePortalTest(unittest.TestCase):
     """A sample test class to show how page object works"""
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(executable_path='/Users/apple/chromedriver')
 
     #def test_login_correct_account(self):
     #	account="samjason515@gmail.com"
@@ -81,6 +94,9 @@ class ServicePortalTest(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login(account,password)
         driverSoftware_page=login_page.click_DriverManualsBtn()
+        driverSoftware_page.switchToIframe()
+        driverSoftware_page.click_inputBox()
+        driverSoftware_page.sendKeysToInputBox('test')
     #def tearDown(self):
         
 
