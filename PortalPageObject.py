@@ -75,8 +75,8 @@ class ServicePortalTest(unittest.TestCase):
     #	print("HERE",login_page.getName())
     #	assert login_page.getName()==name
     def test_DriverManuals(self):
-        account="samjason515@gmail.com"
-        password="Getac123"
+        account="123"
+        password="123"
         name="liao weitung"
         login_page = LoginPage(self.driver)
         login_page.login(account,password)
