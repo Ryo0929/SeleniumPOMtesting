@@ -105,7 +105,7 @@ class ServicePortalTest(unittest.TestCase):
 
     #def test_login_correct_account(self):
     #	account="samjason515@gmail.com"
-    #	password="Getac123"
+    #	password="123"
     #	name="liao weitung"
     #	login_page = LoginPage(self.driver)
     #	login_page.login(account,password)
