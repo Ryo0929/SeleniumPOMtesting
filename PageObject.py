@@ -13,7 +13,7 @@ class BasePage:
 
     def try_to_click(self, By, path):
         str_error = None
-        for x in range(5):
+        for x in range(2):
             try:
                 element = self.driver.find_element(By, path)
                 element.click()
@@ -24,14 +24,14 @@ class BasePage:
                 str_error = True
                 pass
             if str_error:
-                time.sleep(2)
+                time.sleep(1)
                 print("try click again")
             else:
                 break
 
-    def try_get_text(self, By, path):
+    def custom_get_text(self, By, path):
         str_error = None
-        for x in range(5):
+        for x in range(2):
             try:
                 element = self.driver.find_element(By, path)
                 text = element.text
@@ -41,7 +41,7 @@ class BasePage:
                 str_error = True
                 pass
             if str_error:
-                time.sleep(2)
+                time.sleep(1)
                 print("try get text again")
             else:
                 break
